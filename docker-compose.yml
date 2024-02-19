@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  librarydb:
+    image: mariadb:latest
+    container_name: librarydb_container
+    environment:
+      MARIADB_ROOT_PASSWORD: 1329Pathrapol!
+      MARIADB_DATABASE: librarydb
+    restart: always
+    ports:
+      - "3456:3306"
+    networks:
+      - web_network
+
+  phpmyadminlibrary:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin_library
+    restart: always
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_PORT=3456
+    ports:
+      - "5959:80"
+    networks:
+      - web_network
+
+networks:
+  web_network:
+    name: tamnmhee
+    driver: bridge
