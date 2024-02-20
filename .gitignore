@@ -19,4 +19,4 @@ experimental/**/*.db
 .nuxt
 dev.db
 *.env*
-s
+prisma/migrations
