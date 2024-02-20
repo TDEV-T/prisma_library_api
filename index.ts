@@ -5,7 +5,6 @@ import cors from "cors";
 var app = express();
 var prisma = new PrismaClient();
 
-
 app.use(cors());
 
 app.get("/books", async function (req: Request, res: any, next: NextFunction) {

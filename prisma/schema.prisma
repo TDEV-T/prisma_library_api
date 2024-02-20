@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,9 +8,11 @@ datasource db {
 }
 
 model Member {
-  username String @id
+  username String   @id
   name     String
   password String
+  phone    String
+  borrow   Borrow[]
 }
 
 model TypeBook {
@@ -26,4 +27,13 @@ model Book {
   author String
   type   TypeBook @relation(fields: [typeId], references: [id])
   typeId Int
+  borrow Borrow[]
+}
+
+model Borrow {
+  id   Int    @id @default(autoincrement())
+  user Member @relation(fields: [uid], references: [username])
+  uid  String
+  book Book   @relation(fields: [bid], references: [id])
+  bid  String
 }
