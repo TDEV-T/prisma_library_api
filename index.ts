@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { NextFunction } from "express";
 import express, { Application, Request, Response } from "express";
-var cors = require("cors");
+import cors from "cors";
 var app = express();
 var prisma = new PrismaClient();
-require("dotenv").config();
+
 
 app.use(cors());
 
