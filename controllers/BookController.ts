@@ -25,11 +25,11 @@ exports.getBookOne = async (req: Request, res: Response) => {
 };
 
 exports.createBook = async (req: Request, res: Response) => {
-  const id = req.body.id;
-  const name = req.body.name;
-  const author = req.body.author;
-  const type = req.body.type;
-  const price = req.body.price;
+  const id = req.body.b_id;
+  const name = req.body.b_name;
+  const author = req.body.b_writer;
+  const type = req.body.b_category;
+  const price = req.body.b_price;
   try {
     const bookData = await prisma.tb_book.create({
       data: {
