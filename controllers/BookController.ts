@@ -4,11 +4,7 @@ import { PrismaClient } from "@prisma/client";
 var prisma = new PrismaClient();
 
 exports.getBooks = async (req: Request, res: Response) => {
-  const bookData = await prisma.book.findMany({
-    include: {
-      type: true,
-    },
-  });
+  const bookData = await prisma.tb_book.findMany();
 
   res.json({
     data: bookData,
@@ -17,12 +13,9 @@ exports.getBooks = async (req: Request, res: Response) => {
 
 exports.getBookOne = async (req: Request, res: Response) => {
   const id = req.params.id;
-  const bookData = await prisma.book.findUnique({
+  const bookData = await prisma.tb_book.findUnique({
     where: {
-      id: id,
-    },
-    include: {
-      type: true,
+      b_id: id
     },
   });
 
@@ -36,14 +29,15 @@ exports.createBook = async (req: Request, res: Response) => {
   const name = req.body.name;
   const author = req.body.author;
   const type = req.body.type;
-
+  const price = req.body.price;
   try {
-    const bookData = await prisma.book.create({
+    const bookData = await prisma.tb_book.create({
       data: {
-        id: id,
-        name: name,
-        author: author,
-        typeId: type,
+        b_id: id,
+        b_name: name,
+        b_writer: author,
+        b_category: type,
+        b_price: price
       },
     });
 
@@ -65,17 +59,19 @@ exports.updateBook = async (req: Request, res: Response) => {
   const name = req.body.name;
   const author = req.body.author;
   const type = req.body.type;
+  const price = req.body.price;
 
   try {
-    const bookData = await prisma.book.update({
+    const bookData = await prisma.tb_book.update({
       where: {
-        id: id,
+        b_id: id,
       },
       data: {
-        id: idupdate,
-        name: name,
-        author: author,
-        typeId: type,
+        b_id: id,
+        b_name: name,
+        b_writer: author,
+        b_category: type,
+        b_price: price
       },
     });
 
@@ -94,9 +90,9 @@ exports.deleteBook = async (req: Request, res: Response) => {
   const id = req.params.id;
 
   try {
-    const bookDelete = await prisma.book.delete({
+    const bookDelete = await prisma.tb_book.delete({
       where: {
-        id: id,
+        b_id: id
       },
     });
 
