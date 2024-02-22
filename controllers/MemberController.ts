@@ -24,29 +24,14 @@ exports.getMemberOne = async (req: Request, res: Response) => {
   });
 };
 
-<<<<<<< HEAD
-exports.updateMember = async (req: Request, res: Response) => {
-  const userReq = req.params.user;
-
-  const user = req.body.user;
-=======
 
 exports.createMember = async (req: Request, res: Response) => {
   const username = req.body.username;
->>>>>>> d5f2c2f83820b701f7bf4e270d168ef46edc4ae2
   const name = req.body.name;
   const pass = req.body.pass;
   const phone = req.body.phone;
 
   try {
-<<<<<<< HEAD
-    const bookData = await prisma.tb_member.update({
-      where: {
-        m_user: userReq,
-      },
-      data: {
-        m_user: user,
-=======
     const bookData = await prisma.tb_member.create({
       data: {
         m_user: username,
@@ -85,7 +70,6 @@ exports.updateMember = async (req: Request, res: Response) => {
       },
       data: {
         m_user: username,
->>>>>>> d5f2c2f83820b701f7bf4e270d168ef46edc4ae2
         m_name: name,
         m_pass: pass,
         m_phone: phone,

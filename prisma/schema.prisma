@@ -1,0 +1,35 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model tb_member {
+    m_user         String           @id
+    m_name         String
+    m_pass         String
+    m_phone        String
+    borrow_history tb_borrow_book[]
+}
+
+model tb_book {
+    b_id       String           @id
+    b_name     String
+    b_writer   String
+    b_category Int
+    b_price    Int
+    borrow     tb_borrow_book[]
+}
+
+model tb_borrow_book {
+    br_date_br DateTime  @id @default(now())
+    br_date_rt DateTime?
+    user       tb_member @relation(fields: [m_user], references: [m_user])
+    m_user     String
+    book       tb_book   @relation(fields: [b_id], references: [b_id])
+    b_id       String
+    br_fine    Int
+}

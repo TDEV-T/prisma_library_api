@@ -15,11 +15,7 @@ exports.getBookOne = async (req: Request, res: Response) => {
   const id = req.params.id;
   const bookData = await prisma.tb_book.findUnique({
     where: {
-<<<<<<< HEAD
       b_id: id,
-=======
-      b_id: id
->>>>>>> d5f2c2f83820b701f7bf4e270d168ef46edc4ae2
     },
   });
 
@@ -40,11 +36,8 @@ exports.createBook = async (req: Request, res: Response) => {
         b_id: id,
         b_name: name,
         b_writer: author,
-        b_category: type,
-<<<<<<< HEAD
-=======
-        b_price: price
->>>>>>> d5f2c2f83820b701f7bf4e270d168ef46edc4ae2
+        b_category: parseInt(type),
+        b_price: parseInt(price),
       },
     });
 
@@ -62,11 +55,11 @@ exports.createBook = async (req: Request, res: Response) => {
 exports.updateBook = async (req: Request, res: Response) => {
   const id = req.params.id;
 
-  const idupdate = req.body.id;
-  const name = req.body.name;
-  const author = req.body.author;
-  const type = req.body.type;
-  const price = req.body.price;
+  const idupdate = req.body.b_id;
+  const name = req.body.b_name;
+  const author = req.body.b_writer;
+  const type = req.body.b_category;
+  const price = req.body.b_price;
 
   try {
     const bookData = await prisma.tb_book.update({
@@ -74,18 +67,11 @@ exports.updateBook = async (req: Request, res: Response) => {
         b_id: id,
       },
       data: {
-<<<<<<< HEAD
         b_id: idupdate,
         b_name: name,
         b_writer: author,
         b_category: type,
-=======
-        b_id: id,
-        b_name: name,
-        b_writer: author,
-        b_category: type,
-        b_price: price
->>>>>>> d5f2c2f83820b701f7bf4e270d168ef46edc4ae2
+        b_price: parseInt(price),
       },
     });
 
@@ -106,11 +92,7 @@ exports.deleteBook = async (req: Request, res: Response) => {
   try {
     const bookDelete = await prisma.tb_book.delete({
       where: {
-<<<<<<< HEAD
         b_id: id,
-=======
-        b_id: id
->>>>>>> d5f2c2f83820b701f7bf4e270d168ef46edc4ae2
       },
     });
 
