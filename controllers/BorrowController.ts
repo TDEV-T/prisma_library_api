@@ -30,20 +30,12 @@ exports.createBorrow = async (req: Request, res: Response) => {
 };
 
 exports.returnBorrow = async (req: Request, res: Response) => {
-  const m_user = req.body.user;
-  const b_id = req.body.book;
-  const br_fine = req.body.fine;
-  const br_id = req.body.brid;
+  const br_fine = req.body.br_find;
+  const br_id = req.body.br_date_br;
 
   try {
     const borrow = await prisma.tb_borrow_book.update({
       where: {
-        book: {
-          b_id: b_id,
-        },
-        user: {
-          m_user: m_user,
-        },
         br_date_br: br_id,
       },
       data: {
@@ -60,5 +52,59 @@ exports.returnBorrow = async (req: Request, res: Response) => {
   } catch (e) {
     console.log(e);
     res.status(500).json({ message: "Error: Cannot Update Borrow" });
+  }
+};
+
+exports.getAllBorrows = async (req: Request, res: Response) => {
+  try {
+    const data = await prisma.tb_borrow_book.findMany({
+      include: {
+        user: true,
+        book: true,
+      },
+    });
+
+    res.json({
+      data: data,
+      status: true,
+      message: "Get Data Success",
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "Error: Cannot Get Borrow List" });
+  }
+};
+
+exports.updateBorrow = async (req: Request, res: Response) => {
+  const id = req.params.id;
+
+  const br_date_br = req.body.br_date_br;
+  const br_date_rt = req.body.br_date_rt;
+  const m_user = req.body.m_user;
+  const b_id = req.body.b_id;
+  const br_fine = req.body.br_fine;
+
+  try {
+    const borrow = await prisma.tb_borrow_book.update({
+      where: {
+        br_date_br: id,
+      },
+      data: {
+        br_date_br: br_date_br,
+        br_date_rt: br_date_rt,
+        m_user: m_user,
+        b_id: b_id,
+        br_fine: br_fine,
+      },
+    });
+
+    res.json({
+      data: borrow,
+      status: true,
+      message: "Update Success!",
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "Error: Cannot Update List" });
   }
 };

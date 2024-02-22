@@ -24,12 +24,11 @@ exports.getMemberOne = async (req: Request, res: Response) => {
   });
 };
 
-
 exports.createMember = async (req: Request, res: Response) => {
-  const username = req.body.username;
-  const name = req.body.name;
-  const pass = req.body.pass;
-  const phone = req.body.phone;
+  const username = req.body.m_user;
+  const name = req.body.m_name;
+  const pass = req.body.m_pass;
+  const phone = req.body.m_phone;
 
   try {
     const bookData = await prisma.tb_member.create({
@@ -38,7 +37,6 @@ exports.createMember = async (req: Request, res: Response) => {
         m_name: name,
         m_pass: pass,
         m_phone: phone,
-
       },
     });
 
@@ -53,15 +51,13 @@ exports.createMember = async (req: Request, res: Response) => {
   }
 };
 
-
-
 exports.updateMember = async (req: Request, res: Response) => {
   const user = req.params.id;
 
-  const username = req.body.username;
-  const name = req.body.name;
-  const pass = req.body.pass;
-  const phone = req.body.phone;
+  const username = req.body.m_user;
+  const name = req.body.m_name;
+  const pass = req.body.m_pass;
+  const phone = req.body.m_phone;
 
   try {
     const bookData = await prisma.tb_member.update({
