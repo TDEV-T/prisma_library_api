@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 var prisma = new PrismaClient();
 
 exports.getMembers = async (req: Request, res: Response) => {
-  const memberData = await prisma.member.findMany();
+  const memberData = await prisma.tb_member.findMany();
 
   res.json({
     data: memberData,
@@ -13,9 +13,9 @@ exports.getMembers = async (req: Request, res: Response) => {
 
 exports.getMemberOne = async (req: Request, res: Response) => {
   const username = req.params.username;
-  const memberData = await prisma.member.findUnique({
+  const memberData = await prisma.tb_member.findUnique({
     where: {
-      username: username,
+      m_user: username,
     },
   });
 
@@ -25,23 +25,23 @@ exports.getMemberOne = async (req: Request, res: Response) => {
 };
 
 exports.updateMember = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const userReq = req.params.user;
 
-  const idupdate = req.body.id;
+  const user = req.body.user;
   const name = req.body.name;
-  const author = req.body.author;
-  const type = req.body.type;
+  const pass = req.body.pass;
+  const phone = req.body.phone;
 
   try {
-    const bookData = await prisma.book.update({
+    const bookData = await prisma.tb_member.update({
       where: {
-        id: id,
+        m_user: userReq,
       },
       data: {
-        id: idupdate,
-        name: name,
-        author: author,
-        typeId: type,
+        m_user: user,
+        m_name: name,
+        m_pass: pass,
+        m_phone: phone,
       },
     });
 
@@ -60,9 +60,9 @@ exports.deleteMember = async (req: Request, res: Response) => {
   const username = req.params.username;
 
   try {
-    const memberDelete = await prisma.member.delete({
+    const memberDelete = await prisma.tb_member.delete({
       where: {
-        username: username,
+        m_user: username,
       },
     });
 
