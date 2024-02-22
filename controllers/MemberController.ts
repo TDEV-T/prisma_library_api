@@ -24,10 +24,56 @@ exports.getMemberOne = async (req: Request, res: Response) => {
   });
 };
 
+<<<<<<< HEAD
 exports.updateMember = async (req: Request, res: Response) => {
   const userReq = req.params.user;
 
   const user = req.body.user;
+=======
+
+exports.createMember = async (req: Request, res: Response) => {
+  const username = req.body.username;
+>>>>>>> d5f2c2f83820b701f7bf4e270d168ef46edc4ae2
+  const name = req.body.name;
+  const pass = req.body.pass;
+  const phone = req.body.phone;
+
+  try {
+<<<<<<< HEAD
+    const bookData = await prisma.tb_member.update({
+      where: {
+        m_user: userReq,
+      },
+      data: {
+        m_user: user,
+=======
+    const bookData = await prisma.tb_member.create({
+      data: {
+        m_user: username,
+        m_name: name,
+        m_pass: pass,
+        m_phone: phone,
+
+      },
+    });
+
+    res.json({
+      data: bookData,
+      status: true,
+      message: "Create Success !",
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "Error Can't Create" });
+  }
+};
+
+
+
+exports.updateMember = async (req: Request, res: Response) => {
+  const user = req.params.id;
+
+  const username = req.body.username;
   const name = req.body.name;
   const pass = req.body.pass;
   const phone = req.body.phone;
@@ -35,10 +81,11 @@ exports.updateMember = async (req: Request, res: Response) => {
   try {
     const bookData = await prisma.tb_member.update({
       where: {
-        m_user: userReq,
+        m_user: user,
       },
       data: {
-        m_user: user,
+        m_user: username,
+>>>>>>> d5f2c2f83820b701f7bf4e270d168ef46edc4ae2
         m_name: name,
         m_pass: pass,
         m_phone: phone,
@@ -57,7 +104,7 @@ exports.updateMember = async (req: Request, res: Response) => {
 };
 
 exports.deleteMember = async (req: Request, res: Response) => {
-  const username = req.params.username;
+  const username = req.params.id;
 
   try {
     const memberDelete = await prisma.tb_member.delete({

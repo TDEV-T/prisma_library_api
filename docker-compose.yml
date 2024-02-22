@@ -2,14 +2,16 @@ version: "3.9"
 
 services:
   librarydb:
-    image: mariadb:latest
+    image: mysql
     container_name: librarydb_container
     environment:
-      MARIADB_ROOT_PASSWORD: 1329Pathrapol!
-      MARIADB_DATABASE: librarydb
+      MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: Libraby_DB
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 1234library
     restart: always
     ports:
-      - "3456:3306"
+      - "3030:3306"
     networks:
       - web_network
 
@@ -19,7 +21,6 @@ services:
     restart: always
     environment:
       - PMA_ARBITRARY=1
-      - PMA_PORT=3456
     ports:
       - "5959:80"
     networks:
