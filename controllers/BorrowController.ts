@@ -4,16 +4,25 @@ import { PrismaClient } from "@prisma/client";
 var prisma = new PrismaClient();
 
 exports.createBorrow = async (req: Request, res: Response) => {
-  const m_user = req.body.user;
-  const b_id = req.body.book;
+  const m_user = req.body.m_user;
+  const b_id = req.body.b_id;
+  const br_date_br = req.body.br_date_br;
 
   try {
     const borrow = await prisma.tb_borrow_book.create({
       data: {
-        br_date_br: new Date(),
-        br_date_rt: "",
-        book: b_id,
-        user: m_user,
+        br_date_br: new Date(Date.now()),
+        br_date_rt: null,
+        book: {
+          connect: {
+            b_id: b_id,
+          },
+        },
+        user: {
+          connect: {
+            m_user: m_user,
+          },
+        },
         br_fine: 0,
       },
     });
@@ -31,6 +40,7 @@ exports.createBorrow = async (req: Request, res: Response) => {
 
 exports.returnBorrow = async (req: Request, res: Response) => {
   const br_fine = req.body.br_find;
+  const br_date_rt = req.body.br_date_rt;
   const br_id = req.body.br_date_br;
 
   try {
@@ -39,7 +49,7 @@ exports.returnBorrow = async (req: Request, res: Response) => {
         br_date_br: br_id,
       },
       data: {
-        br_date_rt: new Date(),
+        br_date_rt: new Date(br_date_rt),
         br_fine: br_fine,
       },
     });
