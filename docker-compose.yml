@@ -25,8 +25,11 @@ services:
       - "5959:80"
     networks:
       - web_network
-
-networks:
-  web_network:
-    name: tamnmhee
-    driver: bridge
+  libraryweb:
+    build: ./nextjs-library
+    container_name: libraryweb_container
+    restart: always
+    ports:
+      - "8080:3000"
+    networks:
+      - web_network
