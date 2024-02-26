@@ -25,11 +25,13 @@ model tb_book {
 }
 
 model tb_borrow_book {
-    br_date_br DateTime  @id @default(now())
-    br_date_rt DateTime? 
+    br_date_br DateTime  @default(now())
+    br_date_rt DateTime?
     user       tb_member @relation(fields: [m_user], references: [m_user])
     m_user     String
     book       tb_book   @relation(fields: [b_id], references: [b_id])
     b_id       String
     br_fine    Int
+
+    @@id([br_date_br, m_user, b_id])
 }
