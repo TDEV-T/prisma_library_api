@@ -106,3 +106,35 @@ exports.deleteBook = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error can't Delete" });
   }
 };
+
+exports.getBooksByName = async (req: Request, res: Response) =>{
+  const search = req.params.name;
+
+  try {
+    const bookData = await prisma.tb_book.findMany({
+      where: {
+        OR: [
+          {
+            b_name: {
+              contains: search,
+            },
+          },
+          {
+            b_id: {
+              contains: search,
+            },
+          },
+        ],
+      },
+    });
+
+      res.json({
+      data: bookData,
+      status: true,
+      message: "Get Data Success !",
+    })
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "Error Can't Get Username" });
+  }
+}

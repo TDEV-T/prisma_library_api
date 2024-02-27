@@ -70,6 +70,12 @@ exports.getMemberByName = async (req: Request, res: Response) => {
         ],
       },
     });
+
+      res.json({
+      data: memberData,
+      status: true,
+      message: "Get Data Success !",
+    })
   } catch (e) {
     console.log(e);
     res.status(500).json({ message: "Error Can't Get Username" });
