@@ -8,6 +8,7 @@ const {
     updateMember,
     deleteMember,
     createMember,
+    getMemberByName
 } = require("./../controllers/MemberController");
 
 route.get("/members", getMembers);
@@ -19,5 +20,7 @@ route.post("/member", createMember);
 route.patch("/member/:id", updateMember);
 
 route.delete("/member/:id", deleteMember);
+
+route.get("/members/:name",getMemberByName)
 
 module.exports = route;

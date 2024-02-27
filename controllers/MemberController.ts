@@ -51,6 +51,31 @@ exports.createMember = async (req: Request, res: Response) => {
   }
 };
 
+exports.getMemberByName = async (req: Request, res: Response) => {
+  const username = req.params.name;
+  try {
+    const memberData = await prisma.tb_member.findMany({
+      where: {
+        OR: [
+          {
+            m_user: {
+              contains: username,
+            },
+          },
+          {
+            m_name: {
+              contains: username,
+            },
+          },
+        ],
+      },
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "Error Can't Get Username" });
+  }
+};
+
 exports.updateMember = async (req: Request, res: Response) => {
   const user = req.params.id;
 
